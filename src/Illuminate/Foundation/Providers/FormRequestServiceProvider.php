@@ -6,6 +6,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Contracts\Casting\CastsInputWhenResolved;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 
 class FormRequestServiceProvider extends ServiceProvider
@@ -29,6 +30,10 @@ class FormRequestServiceProvider extends ServiceProvider
     {
         $this->app->afterResolving(ValidatesWhenResolved::class, function ($resolved) {
             $resolved->validate();
+        });
+
+        $this->app->afterResolving(CastsInputWhenResolved::class, function ($resolved) {
+            $resolved->castInput();
         });
 
         $this->app->resolving(FormRequest::class, function ($request, $app) {

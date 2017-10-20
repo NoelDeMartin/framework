@@ -8,13 +8,15 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Casting\CastsInputWhenResolvedTrait;
 use Illuminate\Validation\ValidatesWhenResolvedTrait;
+use Illuminate\Contracts\Casting\CastsInputWhenResolved;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 
-class FormRequest extends Request implements ValidatesWhenResolved
+class FormRequest extends Request implements ValidatesWhenResolved, CastsInputWhenResolved
 {
-    use ValidatesWhenResolvedTrait;
+    use ValidatesWhenResolvedTrait, CastsInputWhenResolvedTrait;
 
     /**
      * The container instance.
